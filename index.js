@@ -5,7 +5,7 @@ require("./utils/db")
 import Siswa from "./model/Siswa";
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 app.use(express.json());
 
 
@@ -23,27 +23,47 @@ app.get("/", (req,res) => {
 });
 
 app.get("/siswa", async(req,res) => {
-   const siswa =  await Siswa.find()
-   response(200, {siswa},"show All siswa",res)
+   try{
+      const siswa =  await Siswa.find()
+      response(200, {siswa},"show All siswa",res)
+   }
+   catch(err){
+      res.send(err)
+   }
 });
 
 app.post("/siswa", async(req,res) => {
-   const input = new Siswa(req.body)
-   const query = await input.save()
-   response(200,query,"added siswa is success",res)
+   try{
+      const input = new Siswa(req.body)
+      const query = await input.save()
+      response(200,query,"added siswa is success",res)
+   }
+   catch(err){
+      res.send(err)
+   }
 });
 
 app.delete("/siswa",async(req,res) => {
-   const nama = req.body.nama
-   const query = await Siswa.deleteOne({nama})
-   response(200,query,`deleted siswa whith name ${nama}`,res)
+   try{
+      const nama = req.body.nama
+      const query = await Siswa.deleteOne({nama})
+      response(200,query,`deleted siswa whith name ${nama}`,res)
+   }
+   catch(err){
+      res.send(err)
+   }
 })
 
 app.put("/siswa",async(req,res) => {
-   const filter = req.body.filter
-   const update = req.body.update
-   const query = await Siswa.updateOne(filter,update)
-   response(200,query,`siswa has Updated`,res)
+   try{
+      const filter = req.body.filter
+      const update = req.body.update
+      const query = await Siswa.updateOne(filter,update)
+      response(200,query,`siswa has Updated`,res)
+   }
+   catch(err){
+      res.send(err)
+   }
 })
 
 app.listen(port, () => {
