@@ -3,15 +3,15 @@ import mongoose from 'mongoose';
 const Siswa = mongoose.model('Siswa',{
    nama: {
       type: String,
-      required: true,
+      required: [true,"nama harus di isi"]
    },
    noHp:{
       type: String,
-      required: true,
+      required: [true,"no Hp harus di isi"]
    },
    email:{
       type: String,
-      required: true
+      required: [true,"email harus di isi"]
    }
 })
 
