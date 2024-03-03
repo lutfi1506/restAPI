@@ -5,7 +5,7 @@ require("./utils/db")
 import Siswa from "./model/Siswa";
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 app.use(express.json());
 
 
